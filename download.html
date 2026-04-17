@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>下载 — 抓虾 crawshrimp</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦐</text></svg>">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --bg2: #141414; --bg3: #1a1a1a;
+      --border: #2a2a2a; --accent: #e8621a; --accent2: #ff7a35;
+      --text: #f0f0f0; --text2: #a0a0a0; --green: #22c55e;
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; }
+    .nav-logo span { font-size: 24px; }
+    .nav-back { color: var(--text2); font-size: 14px; }
+    .nav-back:hover { color: var(--text); }
+
+    main {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 60px 24px;
+    }
+
+    .version-badge {
+      display: inline-block;
+      background: rgba(232,98,26,.15); color: var(--accent);
+      border: 1px solid rgba(232,98,26,.3);
+      padding: 4px 14px; border-radius: 99px; font-size: 13px; font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    h1 { font-size: 40px; font-weight: 800; margin-bottom: 12px; text-align: center; }
+    .subtitle { color: var(--text2); font-size: 16px; margin-bottom: 48px; text-align: center; }
+
+    /* AUTO DETECT */
+    .auto-download {
+      width: 100%; max-width: 480px;
+      background: linear-gradient(135deg, rgba(232,98,26,.1), var(--bg2));
+      border: 1px solid var(--accent);
+      border-radius: 16px; padding: 32px;
+      text-align: center; margin-bottom: 24px;
+    }
+    .auto-label { font-size: 13px; color: var(--text2); margin-bottom: 8px; }
+    .auto-platform { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: #fff;
+      padding: 14px 32px; border-radius: 10px;
+      font-size: 16px; font-weight: 700;
+      transition: background .2s, transform .15s;
+      cursor: pointer; border: none; width: 100%;
+      justify-content: center;
+    }
+    .btn-download:hover { background: var(--accent2); transform: translateY(-1px); }
+    .btn-download:disabled { background: #333; color: var(--text2); cursor: not-allowed; transform: none; }
+    .file-info { font-size: 12px; color: var(--text2); margin-top: 10px; }
+
+    /* ALL DOWNLOADS */
+    .all-title {
+      font-size: 13px; color: var(--text2); text-align: center;
+      margin-bottom: 16px;
+    }
+    .download-grid {
+      width: 100%; max-width: 480px;
+      display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 40px;
+    }
+    .download-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: border-color .2s;
+    }
+    .download-item:hover { border-color: #444; }
+    .download-item-left { display: flex; align-items: center; gap: 12px; }
+    .download-icon { font-size: 24px; }
+    .download-name { font-size: 15px; font-weight: 600; }
+    .download-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+    .btn-dl-small {
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); padding: 8px 16px;
+      border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: border-color .2s;
+      white-space: nowrap;
+    }
+    .btn-dl-small:hover { border-color: #555; }
+
+    /* INSTALL GUIDE */
+    .guide {
+      width: 100%; max-width: 480px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+    }
+    .guide h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+    .guide-steps { list-style: none; }
+    .guide-steps li {
+      font-size: 14px; color: var(--text2);
+      padding: 6px 0; display: flex; gap: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .guide-steps li:last-child { border-bottom: none; }
+    .step-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    code {
+      background: var(--bg3); border: 1px solid var(--border);
+      padding: 1px 6px; border-radius: 4px; font-size: 12px;
+      font-family: monospace; color: var(--text);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--text2); font-size: 13px; flex-wrap: wrap; gap: 12px;
+    }
+
+    #loading { color: var(--text2); font-size: 14px; padding: 40px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/"><span>🦐</span> 抓虾</a>
+  <a class="nav-back" href="/">← 返回首页</a>
+</nav>
+
+<main>
+  <div id="loading">加载中...</div>
+
+  <div id="content" style="display:none; width:100%; max-width:480px; display:none; flex-direction:column; align-items:center;">
+    <div class="version-badge" id="versionBadge">v1.0.0</div>
+    <h1>下载抓虾</h1>
+    <p class="subtitle">支持 macOS（Apple Silicon / Intel）和 Windows</p>
+
+    <div class="auto-download" id="autoDownload">
+      <div class="auto-label">检测到你的系统</div>
+      <div class="auto-platform" id="detectedPlatform">检测中...</div>
+      <button class="btn-download" id="btnAutoDownload" disabled onclick="triggerDownload('auto')">
+        <span>⬇</span> <span id="btnText">准备中...</span>
+      </button>
+      <div class="file-info" id="fileInfo"></div>
+    </div>
+
+    <div class="all-title">其他版本</div>
+    <div class="download-grid" id="downloadGrid"></div>
+
+    <div class="guide" id="installGuide"></div>
+  </div>
+</main>
+
+<footer>
+  <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:#f0f0f0"><span>🦐</span> 抓虾 crawshrimp</div>
+  <div>有问题？联系 hi@crawshrimp.com</div>
+</footer>
+
+<script>
+  const REPO = 'howtimeschange/crawshrimp';
+  const TAG = 'desktop-latest';
+  let assets = [];
+  let autoAsset = null;
+
+  // Detect platform
+  const ua = navigator.userAgent;
+  const isMac = /Mac/.test(ua);
+  const isWin = /Win/.test(ua);
+  const isArm = /arm64|aarch64/i.test(ua) || (isMac && navigator.platform === 'MacIntel' && typeof navigator.maxTouchPoints === 'number' && navigator.maxTouchPoints > 1);
+
+  function getPlatformLabel() {
+    if (isMac) return isArm ? 'macOS（Apple Silicon）' : 'macOS（Intel）';
+    if (isWin) return 'Windows';
+    return '未知系统';
+  }
+
+  function matchAsset(assets, platform) {
+    if (platform === 'mac-arm64') return assets.find(a => a.name.includes('mac-arm64'));
+    if (platform === 'mac-x64') return assets.find(a => a.name.includes('mac-x64'));
+    if (platform === 'win') return assets.find(a => a.name.includes('win-x64.exe') && !a.name.includes('blockmap'));
+    return null;
+  }
+
+  function formatSize(bytes) {
+    if (!bytes) return '';
+    return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+  }
+
+  function triggerDownload(type) {
+    const asset = type === 'auto' ? autoAsset : assets.find(a => a.name === type);
+    if (asset) window.location.href = asset.browser_download_url;
+  }
+
+  async function init() {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO}/releases/tags/${TAG}`);
+      const data = await res.json();
+      assets = (data.assets || []).filter(a => !a.name.includes('blockmap'));
+
+      const version = assets[0]?.name.match(/v[\d.]+/)?.[0] || '';
+      document.getElementById('versionBadge').textContent = version;
+
+      // Auto detect
+      let platform = 'mac-x64';
+      if (isMac && isArm) platform = 'mac-arm64';
+      else if (isWin) platform = 'win';
+
+      autoAsset = matchAsset(assets, platform);
+      document.getElementById('detectedPlatform').textContent = getPlatformLabel();
+
+      if (autoAsset) {
+        document.getElementById('btnText').textContent = `下载 ${autoAsset.name}`;
+        document.getElementById('btnAutoDownload').disabled = false;
+        document.getElementById('fileInfo').textContent = formatSize(autoAsset.size) ? `文件大小：${formatSize(autoAsset.size)}` : '';
+      }
+
+      // All downloads
+      const grid = document.getElementById('downloadGrid');
+      const items = [
+        { platform: 'mac-arm64', icon: '🍎', name: 'macOS Apple Silicon', sub: 'M1 / M2 / M3 / M4' },
+        { platform: 'mac-x64',   icon: '🍎', name: 'macOS Intel',         sub: 'Intel Core 处理器' },
+        { platform: 'win',       icon: '🪟', name: 'Windows',             sub: 'Windows 10 / 11 x64' },
+      ];
+      items.forEach(item => {
+        const asset = matchAsset(assets, item.platform);
+        if (!asset) return;
+        const div = document.createElement('div');
+        div.className = 'download-item';
+        div.innerHTML = `
+          <div class="download-item-left">
+            <div class="download-icon">${item.icon}</div>
+            <div>
+              <div class="download-name">${item.name}</div>
+              <div class="download-sub">${item.sub}${asset.size ? ' · ' + formatSize(asset.size) : ''}</div>
+            </div>
+          </div>
+          <button class="btn-dl-small" onclick="triggerDownload('${asset.name}')">下载</button>
+        `;
+        grid.appendChild(div);
+      });
+
+      // Install guide
+      const guide = document.getElementById('installGuide');
+      if (isMac) {
+        guide.innerHTML = `
+          <h3>📦 macOS 安装说明</h3>
+          <ol class="guide-steps">
+            <li><div class="step-num">1</div><div>下载 <code>.dmg</code> 文件后双击打开</div></li>
+            <li><div class="step-num">2</div><div>将抓虾拖入 Applications 文件夹</div></li>
+            <li><div class="step-num">3</div><div>首次启动时系统提示"无法验证"，前往 系统设置 → 隐私与安全性 → 仍要打开</div></li>
+            <li><div class="step-num">4</div><div>用 <code>--remote-debugging-port=9222</code> 参数启动 Chrome，然后登录目标平台即可运行任务</div></li>
+          </ol>
+        `;
+      } else {
+        guide.innerHTML = `
+          <h3>📦 Windows 安装说明</h3>
+          <ol class="guide-steps">
+            <li><div class="step-num">1</div><div>下载 <code>.exe</code> 安装包后双击运行</div></li>
+            <li><div class="step-num">2</div><div>如提示"Windows 已保护你的电脑"，点击"更多信息"→"仍要运行"</div></li>
+            <li><div class="step-num">3</div><div>安装完成后启动抓虾</div></li>
+            <li><div class="step-num">4</div><div>用 <code>--remote-debugging-port=9222</code> 参数启动 Chrome，然后登录目标平台即可运行任务</div></li>
+          </ol>
+        `;
+      }
+
+      document.getElementById('loading').style.display = 'none';
+      const content = document.getElementById('content');
+      content.style.display = 'flex';
+
+    } catch(e) {
+      document.getElementById('loading').textContent = '加载失败，请直接前往 GitHub 下载。';
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>
