@@ -182,7 +182,23 @@
   const ua = navigator.userAgent;
   const isMac = /Mac/.test(ua);
   const isWin = /Win/.test(ua);
-  const isArm = /arm64|aarch64/i.test(ua) || (isMac && navigator.platform === 'MacIntel' && typeof navigator.maxTouchPoints === 'number' && navigator.maxTouchPoints > 1);
+  // 更可靠的 Apple Silicon 检测：
+  // 1. UA 包含 arm64（部分浏览器会带）
+  // 2. 通过 WebGL renderer 检测 Apple GPU
+  let isArm = /arm64|aarch64/i.test(ua);
+  if (!isArm && isMac) {
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (gl) {
+        const ext = gl.getExtension('WEBGL_debug_renderer_info');
+        if (ext) {
+          const renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '';
+          if (/apple/i.test(renderer)) isArm = true;
+        }
+      }
+    } catch(e) {}
+  }
 
   function getPlatformLabel() {
     if (isMac) return isArm ? 'macOS（Apple Silicon）' : 'macOS（Intel）';
@@ -261,10 +277,9 @@
         guide.innerHTML = `
           <h3>📦 macOS 安装说明</h3>
           <ol class="guide-steps">
-            <li><div class="step-num">1</div><div>下载 <code>.dmg</code> 文件后双击打开</div></li>
-            <li><div class="step-num">2</div><div>将抓虾拖入 Applications 文件夹</div></li>
-            <li><div class="step-num">3</div><div>首次启动时系统提示"无法验证"，前往 系统设置 → 隐私与安全性 → 仍要打开</div></li>
-            <li><div class="step-num">4</div><div>用 <code>--remote-debugging-port=9222</code> 参数启动 Chrome，然后登录目标平台即可运行任务</div></li>
+            <li><div class="step-num">1</div><div>下载 <code>.dmg</code> 文件后双击打开，将抓虾拖入 Applications 文件夹</div></li>
+            <li><div class="step-num">2</div><div>打开终端，执行以下命令解除苹果隔离限制：<br/><br/><code>xattr -cr "/Applications/抓虾.app"</code><br/><br/>执行后即可正常启动</div></li>
+            <li><div class="step-num">3</div><div>用 <code>--remote-debugging-port=9222</code> 参数启动 Chrome，登录目标平台后运行任务</div></li>
           </ol>
         `;
       } else {
