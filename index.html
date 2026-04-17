@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>抓虾 crawshrimp — Temu / Shopee / Lazada 运营自动化工具</title>
+  <meta name="description" content="抓虾是一款跨境电商运营自动化桌面工具，支持 Temu、Shopee、Lazada 数据导出、批量操作、价格监控，告别重复劳动。" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --bg2: #141414;
+      --bg3: #1a1a1a;
+      --border: #2a2a2a;
+      --accent: #e8621a;
+      --accent2: #ff7a35;
+      --text: #f0f0f0;
+      --text2: #a0a0a0;
+      --green: #22c55e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; }
+    .nav-logo span { font-size: 24px; }
+    .nav-links { display: flex; gap: 32px; color: var(--text2); font-size: 14px; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #fff;
+      padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--accent2); }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 96px 24px 72px;
+      max-width: 860px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(232,98,26,.15); color: var(--accent);
+      border: 1px solid rgba(232,98,26,.3);
+      padding: 4px 14px; border-radius: 99px; font-size: 13px; font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 800; line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero p {
+      font-size: 18px; color: var(--text2);
+      max-width: 580px; margin: 0 auto 40px;
+    }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      padding: 14px 32px; border-radius: 10px; font-size: 16px; font-weight: 700;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--bg3); color: var(--text);
+      border: 1px solid var(--border);
+      padding: 14px 32px; border-radius: 10px; font-size: 16px; font-weight: 600;
+      transition: border-color .2s;
+    }
+    .btn-secondary:hover { border-color: #555; }
+
+    /* SCREENSHOT CAROUSEL */
+    .carousel-wrap {
+      max-width: 1000px; margin: 0 auto 80px;
+      padding: 0 24px;
+      position: relative;
+    }
+    .carousel {
+      position: relative; overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 32px 80px rgba(0,0,0,.6);
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .carousel-track img {
+      min-width: 100%; width: 100%;
+      display: block;
+    }
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(20,20,20,.85); border: 1px solid var(--border);
+      color: var(--text); width: 40px; height: 40px;
+      border-radius: 50%; font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s; z-index: 10;
+    }
+    .carousel-btn:hover { background: rgba(50,50,50,.95); }
+    .carousel-btn.prev { left: 16px; }
+    .carousel-btn.next { right: 16px; }
+    .carousel-dots {
+      display: flex; justify-content: center; gap: 8px; margin-top: 16px;
+    }
+    .carousel-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border); cursor: pointer; transition: background .2s;
+    }
+    .carousel-dot.active { background: var(--accent); }
+    .carousel-captions {
+      display: flex; justify-content: center; gap: 24px;
+      margin-top: 12px; flex-wrap: wrap;
+    }
+    .carousel-caption {
+      font-size: 13px; color: var(--text2); cursor: pointer;
+      padding: 4px 12px; border-radius: 6px; border: 1px solid transparent;
+      transition: all .2s;
+    }
+    .carousel-caption.active {
+      color: var(--text); border-color: var(--border);
+      background: var(--bg2);
+    }
+
+    /* PAIN */
+    .section { padding: 80px 24px; max-width: 1080px; margin: 0 auto; }
+    .section-label {
+      text-align: center; color: var(--accent);
+      font-size: 13px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .section-title {
+      text-align: center; font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800; margin-bottom: 48px;
+    }
+    .section-title em { color: var(--accent); font-style: normal; }
+
+    .pain-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .pain-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+    }
+    .pain-icon { font-size: 28px; margin-bottom: 12px; }
+    .pain-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .pain-card p { font-size: 14px; color: var(--text2); }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+      transition: border-color .2s;
+    }
+    .feature-card:hover { border-color: var(--accent); }
+    .feature-tag {
+      display: inline-block;
+      background: rgba(232,98,26,.15); color: var(--accent);
+      font-size: 12px; font-weight: 700; padding: 3px 10px;
+      border-radius: 6px; margin-bottom: 14px;
+    }
+    .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .feature-card p { font-size: 14px; color: var(--text2); line-height: 1.7; }
+    .feature-list { list-style: none; margin-top: 12px; }
+    .feature-list li {
+      font-size: 13px; color: var(--text2);
+      padding: 4px 0; display: flex; align-items: center; gap: 8px;
+    }
+    .feature-list li::before { content: "✓"; color: var(--green); font-weight: 700; }
+
+    /* PLATFORMS */
+    .platforms-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .platform-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+    }
+    .platform-name { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .platform-tasks { display: flex; flex-wrap: wrap; gap: 8px; }
+    .task-tag {
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text2); font-size: 12px;
+      padding: 4px 10px; border-radius: 6px;
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px; max-width: 860px; margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(232,98,26,.08), var(--bg2));
+    }
+    .pricing-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #fff;
+      font-size: 12px; font-weight: 700; padding: 4px 16px; border-radius: 99px;
+    }
+    .pricing-name { font-size: 14px; color: var(--text2); margin-bottom: 8px; }
+    .pricing-price { font-size: 40px; font-weight: 800; margin-bottom: 4px; }
+    .pricing-price span { font-size: 16px; color: var(--text2); font-weight: 400; }
+    .pricing-desc { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
+    .pricing-features { list-style: none; margin-bottom: 28px; }
+    .pricing-features li {
+      font-size: 14px; padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before { content: "✓"; color: var(--green); font-weight: 700; }
+    .pricing-features li.disabled { color: var(--text2); }
+    .pricing-features li.disabled::before { content: "—"; color: var(--border); }
+    .btn-plan {
+      display: block; text-align: center; width: 100%;
+      padding: 12px; border-radius: 10px; font-size: 15px; font-weight: 700;
+      transition: all .2s;
+    }
+    .btn-plan.primary { background: var(--accent); color: #fff; }
+    .btn-plan.primary:hover { background: var(--accent2); }
+    .btn-plan.secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-plan.secondary:hover { border-color: #555; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center; padding: 80px 24px;
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(232,98,26,.06) 100%);
+    }
+    .cta-section h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin-bottom: 16px; }
+    .cta-section p { color: var(--text2); margin-bottom: 40px; font-size: 16px; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--text2); font-size: 13px; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--text); }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>🦐</span> 抓虾</div>
+  <div class="nav-links">
+    <a href="#features">功能</a>
+    <a href="#platforms">支持平台</a>
+    <a href="#pricing">定价</a>
+    <a href="https://github.com/howtimeschange/crawshrimp" target="_blank">GitHub</a>
+  </div>
+  <a class="nav-cta" href="https://github.com/howtimeschange/crawshrimp/releases/tag/desktop-latest" target="_blank">免费下载</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🦐 跨境电商运营自动化工具</div>
+  <h1>告别重复操作<br/><em>让数据自动流动</em></h1>
+  <p>专为 Temu、Shopee、Lazada 卖家打造，数据导出、批量创建、价格监控，一键完成。</p>
+  <div class="hero-btns">
+    <a class="btn-primary" href="https://github.com/howtimeschange/crawshrimp/releases/tag/desktop-latest" target="_blank">免费下载 →</a>
+    <a class="btn-secondary" href="https://github.com/howtimeschange/crawshrimp" target="_blank">查看 GitHub</a>
+  </div>
+</section>
+
+<!-- CAROUSEL -->
+<div class="carousel-wrap">
+  <div class="carousel">
+    <div class="carousel-track" id="carouselTrack">
+      <img src="screenshot-1.jpeg" alt="我的脚本 — 主界面" />
+      <img src="screenshot-2.jpeg" alt="Temu 任务执行中" />
+      <img src="screenshot-3.jpeg" alt="Shopee 批量发信执行中" />
+      <img src="screenshot-4.png" alt="数据文件 — Excel 导出列表" />
+    </div>
+    <button class="carousel-btn prev" onclick="carouselMove(-1)">‹</button>
+    <button class="carousel-btn next" onclick="carouselMove(1)">›</button>
+  </div>
+  <div class="carousel-dots" id="carouselDots">
+    <div class="carousel-dot active" onclick="carouselTo(0)"></div>
+    <div class="carousel-dot" onclick="carouselTo(1)"></div>
+    <div class="carousel-dot" onclick="carouselTo(2)"></div>
+    <div class="carousel-dot" onclick="carouselTo(3)"></div>
+  </div>
+  <div class="carousel-captions" id="carouselCaptions">
+    <div class="carousel-caption active" onclick="carouselTo(0)">主界面</div>
+    <div class="carousel-caption" onclick="carouselTo(1)">Temu 任务执行</div>
+    <div class="carousel-caption" onclick="carouselTo(2)">Shopee 批量发信</div>
+    <div class="carousel-caption" onclick="carouselTo(3)">数据文件导出</div>
+  </div>
+</div>
+
+<script>
+  let cur = 0;
+  const total = 4;
+  function carouselTo(n) {
+    cur = n;
+    document.getElementById('carouselTrack').style.transform = `translateX(-${cur * 100}%)`;
+    document.querySelectorAll('.carousel-dot').forEach((d,i) => d.classList.toggle('active', i===cur));
+    document.querySelectorAll('.carousel-caption').forEach((d,i) => d.classList.toggle('active', i===cur));
+  }
+  function carouselMove(dir) { carouselTo((cur + dir + total) % total); }
+  setInterval(() => carouselMove(1), 4000);
+</script>
+
+<hr class="divider" />
+
+<!-- PAIN -->
+<section class="section">
+  <div class="section-label">你是否遇到这些问题</div>
+  <h2 class="section-title">运营每天都在做<em>这些事</em></h2>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-icon">📊</div>
+      <h3>手动导出数据</h3>
+      <p>Temu 后台数据一页一页翻，复制粘贴到 Excel，一条链路花半小时。</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🎟️</div>
+      <h3>批量创建优惠券</h3>
+      <p>Shopee / Lazada 每次活动都要逐个填写，一百个 SKU 填一天。</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">💰</div>
+      <h3>价格巡检</h3>
+      <p>京东价格随时变，人工巡查跟不上，破价了才发现已经晚了。</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🔄</div>
+      <h3>重复性操作</h3>
+      <p>同样的事每天做、每周做，大量时间消耗在没有价值的重复劳动上。</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="section-label">核心能力</div>
+  <h2 class="section-title">抓虾能帮你<em>做什么</em></h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-tag">底座能力</div>
+      <h3>CDP 直连浏览器</h3>
+      <p>脚本在你已登录的 Chrome 里直接运行，无需重新登录，无需账号密码，安全可靠。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-tag">数据导出</div>
+      <h3>全自动 Excel 导出</h3>
+      <p>支持多 Sheet 复杂报表，数据自动落盘，格式干净，直接可用。</p>
+      <ul class="feature-list">
+        <li>商品数据 / 活动数据 / 店铺流量</li>
+        <li>对账中心 / 售后管理</li>
+        <li>商品评价 / 商品品质分析</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-tag">批量操作</div>
+      <h3>批量创建 / 填写</h3>
+      <p>上传 Excel 模板，批量创建优惠券、促销活动，或批量填写建议零售价。</p>
+      <ul class="feature-list">
+        <li>Shopee 批量创建优惠券</li>
+        <li>Lazada 批量创建促销</li>
+        <li>Temu 建议零售价批量填写</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-tag">插件化</div>
+      <h3>适配包随时扩展</h3>
+      <p>底座与业务逻辑分离，支持安装第三方平台适配包，覆盖更多平台和场景。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-tag">桌面应用</div>
+      <h3>Mac / Windows 双端</h3>
+      <p>下载即用，内置 Python 运行时，无需配置环境，开箱即用。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-tag">进度追踪</div>
+      <h3>统一进度 UI</h3>
+      <p>批量任务实时显示进度，任务失败自动标记，随时掌握执行状态。</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PLATFORMS -->
+<section class="section" id="platforms">
+  <div class="section-label">支持平台</div>
+  <h2 class="section-title">覆盖主流<em>跨境电商平台</em></h2>
+  <div class="platforms-grid">
+    <div class="platform-card">
+      <div class="platform-name">🛍️ Temu 运营助手</div>
+      <div class="platform-tasks">
+        <span class="task-tag">商品数据</span>
+        <span class="task-tag">活动数据</span>
+        <span class="task-tag">店铺流量</span>
+        <span class="task-tag">商品流量</span>
+        <span class="task-tag">对账中心</span>
+        <span class="task-tag">售后管理</span>
+        <span class="task-tag">商品评价</span>
+        <span class="task-tag">商品品质分析</span>
+        <span class="task-tag">建议零售价</span>
+        <span class="task-tag">抽检结果</span>
+        <span class="task-tag">保税仓退货</span>
+        <span class="task-tag">站点商品</span>
+      </div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">🟠 Shopee 运营助手</div>
+      <div class="platform-tasks">
+        <span class="task-tag">批量创建优惠券</span>
+        <span class="task-tag">直播优惠券创建</span>
+        <span class="task-tag">聊聊批量发信</span>
+      </div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">🔵 Lazada 运营助手</div>
+      <div class="platform-tasks">
+        <span class="task-tag">批量创建优惠券</span>
+        <span class="task-tag">Flexi Combo</span>
+        <span class="task-tag">新买家券</span>
+        <span class="task-tag">粉丝券</span>
+      </div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">🔴 京东价格监控</div>
+      <div class="platform-tasks">
+        <span class="task-tag">导出全店价格</span>
+        <span class="task-tag">破价巡检</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-label">定价</div>
+  <h2 class="section-title">简单透明的<em>定价方案</em></h2>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-name">免费版</div>
+      <div class="pricing-price">¥0</div>
+      <div class="pricing-desc">永久免费，够用就好</div>
+      <ul class="pricing-features">
+        <li>底座桌面应用</li>
+        <li>基础 Temu 数据导出</li>
+        <li>Mac / Windows 双端</li>
+        <li class="disabled">完整 Temu 适配包</li>
+        <li class="disabled">Shopee / Lazada 适配包</li>
+        <li class="disabled">优先支持</li>
+      </ul>
+      <a class="btn-plan secondary" href="https://github.com/howtimeschange/crawshrimp/releases/tag/desktop-latest" target="_blank">免费下载</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">推荐</div>
+      <div class="pricing-name">订阅版</div>
+      <div class="pricing-price">¥99<span>/月</span></div>
+      <div class="pricing-desc">解锁全量功能，持续更新</div>
+      <ul class="pricing-features">
+        <li>底座桌面应用</li>
+        <li>完整 Temu 适配包</li>
+        <li>Shopee / Lazada 适配包</li>
+        <li>新链路持续更新</li>
+        <li>优先技术支持</li>
+      </ul>
+      <a class="btn-plan primary" href="mailto:hi@crawshrimp.com">联系购买</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-name">买断版</div>
+      <div class="pricing-price">¥499</div>
+      <div class="pricing-desc">一次付费，永久使用</div>
+      <ul class="pricing-features">
+        <li>底座桌面应用</li>
+        <li>完整 Temu 适配包</li>
+        <li>Shopee / Lazada 适配包</li>
+        <li>一年内免费更新</li>
+        <li class="disabled">持续更新</li>
+      </ul>
+      <a class="btn-plan secondary" href="mailto:hi@crawshrimp.com">联系购买</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>🦐 现在就开始用</h2>
+  <p>免费下载，立即体验。Mac / Windows 均可使用。</p>
+  <div class="hero-btns">
+    <a class="btn-primary" href="https://github.com/howtimeschange/crawshrimp/releases/tag/desktop-latest" target="_blank">免费下载 →</a>
+    <a class="btn-secondary" href="https://github.com/howtimeschange/crawshrimp" target="_blank">GitHub 查看源码</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>🦐</span> 抓虾 crawshrimp</div>
+  <div>MIT License · 开源免费</div>
+  <div>联系：hi@crawshrimp.com</div>
+</footer>
+
+</body>
+</html>
