@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>抓虾 crawshrimp — 跨境电商运营自动化工具</title>
+  <title>抓虾 crawshrimp — 通用网页自动化底座</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦐</text></svg>">
-  <meta name="description" content="抓虾是一款跨境电商运营自动化桌面工具，支持 Temu、Shopee、Lazada 数据导出、批量操作、价格监控，告别重复劳动。" />
+  <meta name="description" content="抓虾是通用网页自动化底座。复用你已登录的 Chrome，装上适配包即可把任何网页操作变成一键任务。比 RPA 更方便，不用重新登录、不用写爬虫。" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -214,7 +214,7 @@
 
     /* PRICING */
     .pricing-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
+      display: grid; grid-template-columns: repeat(2, 1fr);
       gap: 20px; max-width: 900px; margin: 0 auto;
     }
     .pricing-custom-grid {
@@ -310,9 +310,9 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">🦐 跨境电商运营自动化工具</div>
-  <h1>告别重复操作<br/><em>让数据自动流动</em></h1>
-  <p>专为 Temu、Shopee、Lazada 卖家打造，数据导出、批量创建、价格监控，一键完成。</p>
+  <div class="hero-badge">🦐 通用网页自动化底座 · 比 RPA 更方便</div>
+  <h1>抓虾 crawshrimp<br/><em>把网页操作变成一键任务</em></h1>
+  <p>复用你已登录的 Chrome，登录态、Cookie、插件全保留。装上对应网站的适配包，日常的导出、批量、巡检就能一键跑完——不用重新登录、不用配环境、不用写爬虫。Mac / Windows 双端，开箱即用。</p>
   <div class="hero-btns">
     <a class="btn-primary" href="/download.html">免费下载 →</a>
     <a class="btn-secondary" href="https://github.com/howtimeschange/crawshrimp-free" target="_blank">查看 GitHub</a>
@@ -363,27 +363,27 @@
 <!-- PAIN -->
 <section class="section">
   <div class="section-label">你是否遇到这些问题</div>
-  <h2 class="section-title">运营每天都在做<em>这些事</em></h2>
+  <h2 class="section-title">每天都在做<em>这些事</em></h2>
   <div class="pain-grid">
     <div class="pain-card">
       <div class="pain-icon">📊</div>
       <h3>手动导出数据</h3>
-      <p>Temu 后台数据一页一页翻，复制粘贴到 Excel，一条链路花半小时。</p>
+      <p>后台数据一页一页翻，复制粘贴到 Excel，一条链路花半小时。</p>
     </div>
     <div class="pain-card">
       <div class="pain-icon">🎟️</div>
-      <h3>批量创建优惠券</h3>
-      <p>Shopee / Lazada 每次活动都要逐个填写，一百个 SKU 填一天。</p>
+      <h3>批量创建 / 填写</h3>
+      <p>一百条数据要逐个填，优惠券、SKU、价格、私信，一填就是一天。</p>
     </div>
     <div class="pain-card">
       <div class="pain-icon">💰</div>
-      <h3>价格巡检</h3>
-      <p>京东价格随时变，人工巡查跟不上，破价了才发现已经晚了。</p>
+      <h3>网页巡检 / 监控</h3>
+      <p>价格、库存、评论随时在变，人工巡查跟不上，出问题才发现已经晚了。</p>
     </div>
     <div class="pain-card">
-      <div class="pain-icon">🔄</div>
-      <h3>重复性操作</h3>
-      <p>同样的事每天做、每周做，大量时间消耗在没有价值的重复劳动上。</p>
+      <div class="pain-icon">🔑</div>
+      <h3>写爬虫太重</h3>
+      <p>登录、Cookie、验证码、分页、重试……没写完已经半天过去了。</p>
     </div>
   </div>
 </section>
@@ -397,33 +397,23 @@
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-tag">底座能力</div>
-      <h3>CDP 直连浏览器</h3>
-      <p>脚本在你已登录的 Chrome 里直接运行，无需重新登录，无需账号密码，安全可靠。</p>
+      <h3>复用你已登录的 Chrome</h3>
+      <p>通过 CDP 直连你自己的 Chrome，登录态、Cookie、插件全保留，不用再写登录和反爬。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-tag">适配包</div>
+      <h3>理论上支持任何网页</h3>
+      <p>底座和业务解耦，每个网站一个适配包。内置 Temu / Shopee / Lazada / 京东，也可以按你的业务定制。</p>
     </div>
     <div class="feature-card">
       <div class="feature-tag">数据导出</div>
       <h3>全自动 Excel 导出</h3>
-      <p>支持多 Sheet 复杂报表，数据自动落盘，格式干净，直接可用。</p>
-      <ul class="feature-list">
-        <li>商品数据 / 活动数据 / 店铺流量</li>
-        <li>对账中心 / 售后管理</li>
-        <li>商品评价 / 商品品质分析</li>
-      </ul>
+      <p>支持多 Sheet 复杂报表，数据自��落盘，格式干净，直接可用。</p>
     </div>
     <div class="feature-card">
       <div class="feature-tag">批量操作</div>
-      <h3>批量创建 / 填写</h3>
-      <p>上传 Excel 模板，批量创建优惠券、促销活动，或批量填写建议零售价。</p>
-      <ul class="feature-list">
-        <li>Shopee 批量创建优惠券</li>
-        <li>Lazada 批量创建促销</li>
-        <li>Temu 建议零售价批量填写</li>
-      </ul>
-    </div>
-    <div class="feature-card">
-      <div class="feature-tag">插件化</div>
-      <h3>适配包随时扩展</h3>
-      <p>底座与业务逻辑分离，支持安装第三方平台适配包，覆盖更多平台和场景。</p>
+      <h3>批量创建 / 填写 / 发送</h3>
+      <p>上传 Excel 模板，批量创建、批量填写、批量触达，一次跑完。</p>
     </div>
     <div class="feature-card">
       <div class="feature-tag">桌面应用</div>
@@ -442,8 +432,9 @@
 
 <!-- PLATFORMS -->
 <section class="section" id="platforms">
-  <div class="section-label">支持平台</div>
-  <h2 class="section-title">覆盖主流<em>跨境电商平台</em><span style="display:inline-block;margin-left:12px;font-size:13px;font-weight:600;color:#e8621a;background:rgba(232,98,26,.12);border:1px solid rgba(232,98,26,.3);border-radius:20px;padding:2px 10px;vertical-align:middle;position:relative;top:-3px;">持续更新中</span></h2>
+  <div class="section-label">内置适配包</div>
+  <h2 class="section-title">开箱即用的<em>平台适配包</em><span style="display:inline-block;margin-left:12px;font-size:13px;font-weight:600;color:#e8621a;background:rgba(232,98,26,.12);border:1px solid rgba(232,98,26,.3);border-radius:20px;padding:2px 10px;vertical-align:middle;position:relative;top:-3px;">持续更新中</span></h2>
+  <p style="text-align:center;color:var(--text2);font-size:14px;margin:-32px auto 40px;max-width:640px;">内置这些平台的常用任务；不在列表里的网站，也可以按你的业务定制专属适配包。</p>
   <div class="platforms-grid">
     <div class="platform-card">
       <div class="platform-name">🛍️ Temu 运营助手</div>
@@ -499,43 +490,29 @@
     <div class="pricing-card">
       <div class="pricing-name">免费版</div>
       <div class="pricing-price">¥0</div>
-      <div class="pricing-desc">永久免费，够用就好</div>
+      <div class="pricing-desc">先下载体验，够用再升级</div>
       <ul class="pricing-features">
         <li>底座桌面应用</li>
-        <li>基础 Temu 数据导出</li>
+        <li>4 个 Temu 基础脚本</li>
         <li>Mac / Windows 双端</li>
         <li class="disabled">完整 Temu 适配包</li>
-        <li class="disabled">Shopee / Lazada 适配包</li>
+        <li class="disabled">Shopee / Lazada / 京东高级能力</li>
         <li class="disabled">优先支持</li>
       </ul>
       <a class="btn-plan secondary" href="/download.html">免费下载</a>
-    </div>
-    <div class="pricing-card">
-      <div class="pricing-name">订阅版</div>
-      <div class="pricing-price">¥99<span>/月</span></div>
-      <div class="pricing-desc">解锁全量功能，持续更新</div>
-      <ul class="pricing-features">
-        <li>底座桌面应用</li>
-        <li>完整 Temu 适配包</li>
-        <li>Shopee / Lazada 适配包</li>
-        <li>新链路持续更新</li>
-        <li>优先技术支持</li>
-        <li class="disabled">永久授权</li>
-      </ul>
-      <button class="btn-plan secondary" onclick="document.getElementById('wechat-popup').style.display='flex'">联系购买</button>
     </div>
     <div class="pricing-card featured">
       <div class="pricing-badge">推荐</div>
       <div class="pricing-name">买断版</div>
       <div class="pricing-price">¥499</div>
-      <div class="pricing-desc">一次付费，永久使用</div>
+      <div class="pricing-desc">一次付费，永久使用核心能力</div>
       <ul class="pricing-features">
         <li>底座桌面应用</li>
         <li>完整 Temu 适配包</li>
         <li>Shopee / Lazada 适配包</li>
+        <li>京东价格监控</li>
         <li>一年内免费更新</li>
         <li>永久授权</li>
-        <li class="disabled">持续更新</li>
       </ul>
       <button class="btn-plan primary" onclick="document.getElementById('wechat-popup').style.display='flex'">联系购买</button>
     </div>
@@ -543,7 +520,7 @@
 
   <div class="pricing-custom-header">
     <div class="section-label">定制开发</div>
-    <h2 class="section-title">搞不定的需求，<em>交给我来做</em></h2>
+    <h2 class="section-title">标准版不够用，<em>我帮你定制</em></h2>
   </div>
   <div class="pricing-custom-grid">
     <div class="pricing-card">
