@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://crawshrimp.com/sitemap.xml
