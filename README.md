@@ -4,9 +4,10 @@
 
 ## 项目结构
 
-- `index.html`：首页落地页
+- `index.html`：首页落地页，完整展示电商自动化、AI 图片/视频生产与云端协作能力
 - `download.html`：下载页，会动态读取 GitHub Release 里的安装包
-- `screenshot-*`：首页轮播截图
+- `crawshrimp-intro-16x9.mp4`：首页首屏社群宣传片（16:9）
+- `screenshot-*`：产品能力展示截图
 - `wechat-qr.jpg`：购买咨询二维码
 
 ## 本地预览
@@ -40,7 +41,7 @@ http://localhost:8788/
 `download.html` 会请求 GitHub Releases API：
 
 ```text
-https://api.github.com/repos/howtimeschange/crawshrimp-free/releases/tags/desktop-latest
+https://api.github.com/repos/howtimeschange/crawshrimp/releases/tags/desktop-latest
 ```
 
 下载页依赖这个 Release tag 下的 assets 命名来自动识别安装包：
@@ -49,4 +50,4 @@ https://api.github.com/repos/howtimeschange/crawshrimp-free/releases/tags/deskto
 - `mac-x64`：macOS Intel
 - `win-x64.exe`：Windows
 
-发布新版桌面端时，需要更新 `howtimeschange/crawshrimp-free` 仓库中 `desktop-latest` 这个 tag 对应的 Release assets。只要文件名继续包含上面的平台标识，落地页无需改代码。
+发布新版桌面端时，需要更新 `howtimeschange/crawshrimp` 仓库中 `desktop-latest` 这个 tag 对应的 Release assets。只要文件名继续包含上面的平台标识，落地页无需改代码。
