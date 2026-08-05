@@ -14,6 +14,7 @@
   <link rel="alternate" hreflang="x-default" href="https://crawshrimp.com/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦐</text></svg>" />
   <meta property="og:locale" content="zh_CN" />
   <meta property="og:type" content="website" />
@@ -51,7 +52,7 @@
         "operatingSystem": "macOS, Windows",
         "url": "https://crawshrimp.com/",
         "downloadUrl": "https://crawshrimp.com/download.html",
-        "softwareVersion": "2.2.2",
+        "softwareVersion": "2.4.7",
         "description": "面向电商运营的本地自动化、AI 图片视频生产与云端审批协作平台。",
         "featureList": [
           "复用已登录 Chrome 执行电商平台自动化",
@@ -627,6 +628,12 @@
     .reveal { opacity: 1; transform: none; }
     .has-motion .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
     .has-motion .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .has-motion.gsap-enhanced .reveal { transition: none; }
+    .gsap-enhanced .top-nav,
+    .gsap-enhanced .film-frame,
+    .gsap-enhanced .film-orbit,
+    .gsap-enhanced .system-card,
+    .gsap-enhanced .price-card { will-change: transform, opacity; }
 
     @media (max-width: 1040px) {
       .nav-links { display: none; }
@@ -736,8 +743,8 @@
             <a class="button button-ghost" href="https://github.com/howtimeschange/crawshrimp" target="_blank" rel="noreferrer">查看 GitHub</a>
           </div>
           <div class="release-note">
-            <b>v2.2.2</b>
-            <span>最新正式版完善 AI 视频素材回显、任务状态与历史清理；macOS 与 Windows 均提供桌面安装包。</span>
+            <b>v2.4.7</b>
+            <span>最新正式版补齐 SCM 洗唛吊牌批量下载、Bala 视频队列同步，并加强短视频批量上传防串款保护；macOS 与 Windows 均提供桌面安装包。</span>
           </div>
         </div>
       </div>
@@ -1022,6 +1029,9 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="motion.js"></script>
   <script>
     function openContact() {
       const popup = document.getElementById('wechat-popup');
@@ -1040,17 +1050,7 @@
       if (event.key === 'Escape') closeContact();
     });
 
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px' });
-      document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
-    } else {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.querySelectorAll('.reveal').forEach((element) => element.classList.add('is-visible'));
     }
   </script>

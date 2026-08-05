@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>抓虾 crawshrimp 下载｜电商自动化与 AI 生产桌面端</title>
-  <meta name="description" content="下载抓虾 crawshrimp 桌面端，支持 macOS Apple Silicon、macOS Intel 和 Windows。复用已登录 Chrome，运行电商自动化、AI 生图、AI 生视频与平台适配任务。" />
+  <title>抓虾 crawshrimp v2.4.7 下载｜电商自动化与 AI 生产桌面端</title>
+  <meta name="description" content="下载抓虾 crawshrimp v2.4.7 桌面端，支持 macOS Apple Silicon、macOS Intel 和 Windows。复用已登录 Chrome，运行电商自动化、AI 生图、AI 生视频与平台适配任务。" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="author" content="抓虾 crawshrimp" />
   <meta name="theme-color" content="#f3f0ed" />
@@ -14,20 +14,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://api.github.com" />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦐</text></svg>" />
   <meta property="og:locale" content="zh_CN" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="抓虾 crawshrimp" />
-  <meta property="og:title" content="抓虾 crawshrimp 下载｜电商自动化与 AI 生产桌面端" />
-  <meta property="og:description" content="下载抓虾桌面端，在 Mac 和 Windows 上完成已登录 Chrome 自动化、AI 图片视频生产与本地任务管理。" />
+  <meta property="og:title" content="抓虾 crawshrimp v2.4.7 下载｜电商自动化与 AI 生产桌面端" />
+  <meta property="og:description" content="下载抓虾 v2.4.7 桌面端，在 Mac 和 Windows 上完成已登录 Chrome 自动化、AI 图片视频生产与本地任务管理。" />
   <meta property="og:url" content="https://crawshrimp.com/download" />
   <meta property="og:image" content="https://crawshrimp.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="抓虾 crawshrimp 桌面端下载页面" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="抓虾 crawshrimp 下载｜电商自动化与 AI 生产桌面端" />
-  <meta name="twitter:description" content="下载抓虾 crawshrimp，用一个桌面端运行电商自动化、AI 生图和 AI 生视频任务。" />
+  <meta name="twitter:title" content="抓虾 crawshrimp v2.4.7 下载｜电商自动化与 AI 生产桌面端" />
+  <meta name="twitter:description" content="下载抓虾 crawshrimp v2.4.7，用一个桌面端运行电商自动化、AI 生图和 AI 生视频任务。" />
   <meta name="twitter:image" content="https://crawshrimp.com/og-image.png" />
   <script type="application/ld+json">
   {
@@ -49,6 +50,8 @@
         "operatingSystem": "macOS, Windows",
         "url": "https://crawshrimp.com/",
         "downloadUrl": "https://crawshrimp.com/download",
+        "softwareVersion": "2.4.7",
+        "releaseNotes": "https://github.com/howtimeschange/crawshrimp/releases/tag/desktop-latest",
         "description": "抓虾 crawshrimp 桌面端复用已登录 Chrome，运行电商平台自动化、AI 生图、AI 生视频、AI 视频工作流和本地数据任务。",
         "featureList": [
           "macOS Apple Silicon、macOS Intel 和 Windows 桌面端",
@@ -73,8 +76,8 @@
         "@type": "WebPage",
         "@id": "https://crawshrimp.com/download#webpage",
         "url": "https://crawshrimp.com/download",
-        "name": "抓虾 crawshrimp 下载｜电商自动化与 AI 生产桌面端",
-        "description": "下载抓虾 crawshrimp 桌面端，支持 macOS Apple Silicon、macOS Intel 和 Windows，用于电商自动化与 AI 图片视频生产。",
+        "name": "抓虾 crawshrimp v2.4.7 下载｜电商自动化与 AI 生产桌面端",
+        "description": "下载抓虾 crawshrimp v2.4.7 桌面端，支持 macOS Apple Silicon、macOS Intel 和 Windows，用于电商自动化与 AI 图片视频生产。",
         "inLanguage": "zh-CN",
         "about": {
           "@id": "https://crawshrimp.com/#software"
@@ -135,6 +138,7 @@
 
     body {
       min-height: 100vh;
+      overflow-x: hidden;
       background:
         radial-gradient(circle at 78% 4%, rgba(232, 98, 26, .14), transparent 34vw),
         linear-gradient(180deg, var(--canvas) 0%, #f8f2ec 55%, var(--canvas) 100%);
@@ -159,7 +163,7 @@
     }
 
     nav {
-      width: min(var(--content), 100%);
+      width: min(var(--content), calc(100vw - 48px));
       min-height: 68px;
       margin: 0 auto;
       display: flex;
@@ -253,6 +257,7 @@
       max-width: 680px;
       font-size: clamp(48px, 8vw, 88px);
       line-height: .96;
+      overflow-wrap: anywhere;
     }
 
     h1 span {
@@ -305,6 +310,55 @@
       color: var(--orange-3);
       font-size: 13px;
       font-weight: 820;
+    }
+
+    .release-meta {
+      position: relative;
+      z-index: 2;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .release-highlights {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 9px;
+      margin-top: 20px;
+      list-style: none;
+      color: var(--ink-2);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .release-highlights li {
+      display: grid;
+      grid-template-columns: 9px 1fr;
+      gap: 9px;
+      align-items: start;
+    }
+
+    .release-highlights li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      margin-top: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .release-link {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      margin-top: 18px;
+      color: var(--orange-3);
+      font-size: 13px;
+      font-weight: 820;
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
     .auto-label {
@@ -378,9 +432,11 @@
 
     .content-grid {
       display: grid;
-      grid-template-columns: minmax(0, .82fr) minmax(360px, 1fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: 22px;
       align-items: start;
+      width: min(760px, 100%);
+      margin: 0 auto;
     }
 
     .panel {
@@ -446,6 +502,12 @@
       line-height: 1.35;
     }
 
+    .download-file {
+      display: block;
+      margin-top: 2px;
+      overflow-wrap: anywhere;
+    }
+
     .btn-dl-small {
       min-height: 42px;
       padding: 0 18px;
@@ -453,57 +515,6 @@
       color: var(--canvas);
       font-size: 14px;
       font-weight: 760;
-    }
-
-    .guide h3 {
-      font-size: clamp(26px, 3.5vw, 38px);
-      line-height: 1.05;
-      margin-bottom: 18px;
-    }
-
-    .guide-steps {
-      display: grid;
-      gap: 12px;
-      list-style: none;
-    }
-
-    .guide-steps li {
-      display: grid;
-      grid-template-columns: 38px 1fr;
-      gap: 14px;
-      align-items: start;
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background: var(--white);
-      color: var(--ink-2);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .step-num {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--orange);
-      color: var(--white);
-      font-size: 13px;
-      font-weight: 820;
-    }
-
-    code {
-      display: inline-block;
-      max-width: 100%;
-      padding: 2px 7px;
-      border: 1px solid rgba(23, 20, 18, .12);
-      border-radius: 7px;
-      background: #f2ece5;
-      color: var(--ink);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 12px;
-      overflow-wrap: anywhere;
     }
 
     .loading {
@@ -516,6 +527,13 @@
       color: var(--muted);
       text-align: center;
       box-shadow: var(--shadow-soft);
+    }
+
+    .loading a {
+      color: var(--orange-3);
+      font-weight: 820;
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
     footer {
@@ -538,6 +556,11 @@
 
     .footer-inner .nav-logo { color: var(--ink); }
 
+    .gsap-enhanced .nav-wrap nav,
+    .gsap-enhanced .release-card,
+    .gsap-enhanced .content-grid .panel,
+    .gsap-enhanced .download-item { will-change: transform, opacity; }
+
     @media (max-width: 900px) {
       .hero,
       .content-grid {
@@ -552,13 +575,31 @@
       }
 
       nav {
+        width: calc(100vw - 24px);
         min-height: 58px;
         padding: 8px 8px 8px 14px;
+        gap: 10px;
       }
 
       .nav-logo { font-size: 16px; }
       .logo-mark { font-size: 25px; }
-      .nav-back { min-height: 42px; padding: 0 14px; font-size: 14px; }
+      .nav-logo span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .nav-back {
+        position: fixed;
+        top: 18px;
+        right: 24px;
+        z-index: 102;
+        width: 44px;
+        min-height: 42px;
+        padding: 0;
+        flex: 0 0 44px;
+        font-size: 0;
+      }
+      .nav-back::before {
+        content: "←";
+        font-size: 20px;
+        line-height: 1;
+      }
 
       main {
         width: calc(100% - 28px);
@@ -566,6 +607,13 @@
       }
 
       h1 { font-size: clamp(44px, 15vw, 62px); }
+      .btn-download {
+        min-height: 58px;
+        padding: 12px 18px;
+        line-height: 1.22;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
       .release-card,
       .panel { border-radius: 28px; }
 
@@ -597,12 +645,19 @@
       <section class="hero" aria-labelledby="download-title">
         <div>
           <div class="eyebrow">Desktop download</div>
-          <h1 id="download-title">下载抓虾 crawshrimp <span>电商自动化与 AI 生产桌面端</span></h1>
-          <p class="subtitle">抓虾会自动推荐适合你电脑的 Mac 或 Windows 版本。安装包内置运行环境，无需手动配置 Python / Node；连接已登录 Chrome 后，即可运行平台自动化、AI 生图、AI 生视频与本地任务。</p>
+          <h1 id="download-title">下载抓虾 crawshrimp <span id="titleVersion">v2.4.7 桌面端</span></h1>
+          <p class="subtitle">抓虾会自动推荐适合你电脑的 Mac 或 Windows 版本。v2.4.7 补齐 SCM 洗唛吊牌批量下载、Bala 视频队列同步和短视频批量上传防串款保护；连接已登录 Chrome 后，即可运行平台自动化、AI 生图、AI 生视频与本地任务。</p>
         </div>
 
         <div class="release-card" id="autoDownload">
-          <div class="version-badge" id="versionBadge">v1.0.0</div>
+          <div class="version-badge" id="versionBadge">v2.4.7</div>
+          <div class="release-meta" id="releaseMeta">2026-08-05 更新 · desktop-latest</div>
+          <ul class="release-highlights" id="releaseHighlights">
+            <li>SCM 洗唛吊牌批量下载</li>
+            <li>Bala AI 视频队列状态同步</li>
+            <li>短视频批量上传防串款保护</li>
+          </ul>
+          <a class="release-link" id="releaseLink" href="https://github.com/howtimeschange/crawshrimp/releases/tag/desktop-latest" target="_blank" rel="noreferrer">查看 Release 说明</a>
           <div class="auto-label">检测到你的系统</div>
           <div class="auto-platform" id="detectedPlatform">检测中...</div>
           <button class="btn-download" id="btnAutoDownload" disabled onclick="triggerDownload('auto')">
@@ -612,13 +667,11 @@
         </div>
       </section>
 
-      <section class="content-grid" aria-label="所有下载和安装说明">
+      <section class="content-grid" aria-label="所有下载">
         <div class="panel">
-          <h2>其他版本</h2>
+          <h2>全部安装包</h2>
           <div class="download-grid" id="downloadGrid"></div>
         </div>
-
-        <div class="panel guide" id="installGuide"></div>
       </section>
     </div>
   </main>
@@ -630,9 +683,20 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="motion.js"></script>
   <script>
     const REPO = 'howtimeschange/crawshrimp';
     const TAG = 'desktop-latest';
+    const FALLBACK_VERSION = 'v2.4.7';
+    const FALLBACK_RELEASE_DATE = '2026-08-05';
+    const RELEASE_URL = `https://github.com/${REPO}/releases/tag/${TAG}`;
+    const FALLBACK_HIGHLIGHTS = [
+      'SCM 洗唛吊牌批量下载',
+      'Bala AI 视频队列状态同步',
+      '短视频批量上传防串款保护',
+    ];
     let assets = [];
     let autoAsset = null;
 
@@ -662,9 +726,13 @@
     }
 
     function matchAsset(assets, platform) {
-      if (platform === 'mac-arm64') return assets.find(a => a.name.includes('mac-arm64'));
-      if (platform === 'mac-x64') return assets.find(a => a.name.includes('mac-x64'));
-      if (platform === 'win') return assets.find(a => a.name.includes('win-x64.exe') && !a.name.includes('blockmap'));
+      if (platform === 'mac-arm64') {
+        return assets.find(a => /mac-arm64\.dmg$/i.test(a.name)) || assets.find(a => /mac-arm64\.zip$/i.test(a.name));
+      }
+      if (platform === 'mac-x64') {
+        return assets.find(a => /mac-x64\.dmg$/i.test(a.name)) || assets.find(a => /mac-x64\.zip$/i.test(a.name));
+      }
+      if (platform === 'win') return assets.find(a => /win-x64\.exe$/i.test(a.name));
       return null;
     }
 
@@ -678,14 +746,57 @@
       if (asset) window.location.href = asset.browser_download_url;
     }
 
+    function extractVersion(data) {
+      const candidates = [
+        data.name,
+        data.tag_name,
+        ...(data.assets || []).map(asset => asset.name),
+      ].filter(Boolean).join(' ');
+      const match = candidates.match(/v?\d+\.\d+\.\d+/);
+      if (!match) return FALLBACK_VERSION;
+      return match[0].startsWith('v') ? match[0] : `v${match[0]}`;
+    }
+
+    function extractReleaseDate(data) {
+      const bodyDate = data.body?.match(/发布日期[:：]\s*(\d{4}-\d{2}-\d{2})/);
+      if (bodyDate) return bodyDate[1];
+      if (data.updated_at) return new Date(data.updated_at).toISOString().slice(0, 10);
+      return FALLBACK_RELEASE_DATE;
+    }
+
+    function extractHighlights(body) {
+      if (!body) return FALLBACK_HIGHLIGHTS;
+      const headings = [...body.matchAll(/^##\s+(.+)$/gm)]
+        .map(match => match[1].trim())
+        .filter(heading => !/验证|构建|发布|说明/.test(heading));
+      return headings.slice(0, 3).length ? headings.slice(0, 3) : FALLBACK_HIGHLIGHTS;
+    }
+
+    function renderHighlights(highlights) {
+      const list = document.getElementById('releaseHighlights');
+      list.innerHTML = '';
+      highlights.forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        list.appendChild(li);
+      });
+    }
+
     async function init() {
       try {
         const res = await fetch(`https://api.github.com/repos/${REPO}/releases/tags/${TAG}`);
         const data = await res.json();
-        assets = (data.assets || []).filter(a => !a.name.includes('blockmap'));
+        if (!res.ok) throw new Error(data.message || 'GitHub Release 请求失败');
+        assets = (data.assets || []).filter(a => !a.name.includes('blockmap') && !/^latest(?:-mac)?\.yml$/i.test(a.name));
 
-        const version = assets[0]?.name.match(/v[\d.]+/)?.[0] || data.name?.match(/v[\d.]+/)?.[0] || 'latest';
+        const version = extractVersion(data);
+        const releaseDate = extractReleaseDate(data);
+        const shortCommit = data.target_commitish ? data.target_commitish.slice(0, 7) : '';
         document.getElementById('versionBadge').textContent = version;
+        document.getElementById('titleVersion').textContent = `${version} 桌面端`;
+        document.getElementById('releaseMeta').textContent = `${releaseDate} 更新 · ${TAG}${shortCommit ? ` · ${shortCommit}` : ''}`;
+        document.getElementById('releaseLink').href = data.html_url || RELEASE_URL;
+        renderHighlights(extractHighlights(data.body));
 
         let platform = 'mac-x64';
         if (isMac && isArm) platform = 'mac-arm64';
@@ -697,7 +808,7 @@
         if (autoAsset) {
           document.getElementById('btnAutoDownload').innerHTML = `<span>下载 ${autoAsset.name}</span>`;
           document.getElementById('btnAutoDownload').disabled = false;
-          document.getElementById('fileInfo').textContent = formatSize(autoAsset.size) ? `文件大小：${formatSize(autoAsset.size)}` : '';
+          document.getElementById('fileInfo').textContent = formatSize(autoAsset.size) ? `文件大小：${formatSize(autoAsset.size)} · ${version}` : version;
         } else {
           document.getElementById('fileInfo').textContent = '未匹配到当前系统安装包，请在下方选择其他版本。';
         }
@@ -720,40 +831,20 @@
               <div class="download-icon">${item.icon}</div>
               <div>
                 <div class="download-name">${item.name}</div>
-                <div class="download-sub">${item.sub}${asset.size ? ' · ' + formatSize(asset.size) : ''}</div>
+                <div class="download-sub">${item.sub}${asset.size ? ' · ' + formatSize(asset.size) : ''}<span class="download-file">${asset.name}</span></div>
               </div>
             </div>
-            <button class="btn-dl-small" onclick="triggerDownload('${asset.name}')">下载</button>
+            <button class="btn-dl-small" type="button">下载</button>
           `;
+          div.querySelector('button').addEventListener('click', () => triggerDownload(asset.name));
           grid.appendChild(div);
         });
 
-        const guide = document.getElementById('installGuide');
-        if (isMac) {
-          guide.innerHTML = `
-            <h3>macOS 安装说明</h3>
-            <ol class="guide-steps">
-              <li><div class="step-num">1</div><div>下载 <code>.dmg</code> 文件后双击打开，将抓虾拖入 Applications 文件夹。</div></li>
-              <li><div class="step-num">2</div><div>打开终端执行：<br/><code>xattr -cr "/Applications/抓虾.app"</code><br/>解除苹果隔离限制后即可启动。</div></li>
-              <li><div class="step-num">3</div><div>用 <code>--remote-debugging-port=9222</code> 参数启动 Chrome，登录目标平台后运行任务。</div></li>
-            </ol>
-          `;
-        } else {
-          guide.innerHTML = `
-            <h3>Windows 安装说明</h3>
-            <ol class="guide-steps">
-              <li><div class="step-num">1</div><div>下载 <code>.exe</code> 安装包后双击运行。</div></li>
-              <li><div class="step-num">2</div><div>如提示“Windows 已保护你的电脑”，点击“更多信息”→“仍要运行”。</div></li>
-              <li><div class="step-num">3</div><div>安装完成后启动抓虾。</div></li>
-              <li><div class="step-num">4</div><div>用 <code>--remote-debugging-port=9222</code> 参数启动 Chrome，然后登录目标平台即可运行任务。</div></li>
-            </ol>
-          `;
-        }
-
         document.getElementById('loading').style.display = 'none';
         document.getElementById('content').style.display = 'block';
+        window.CrawshrimpMotion?.initDownload();
       } catch(e) {
-        document.getElementById('loading').textContent = '加载失败，请直接前往 GitHub 下载。';
+        document.getElementById('loading').innerHTML = `加载失败，请直接前往 <a href="${RELEASE_URL}" target="_blank" rel="noreferrer">GitHub Release</a> 下载。`;
       }
     }
 

@@ -6,6 +6,7 @@
 
 - `index.html`：首页落地页，完整展示电商自动化、AI 图片/视频生产与云端协作能力
 - `download.html`：下载页，会动态读取 GitHub Release 里的安装包
+- `motion.js`：GSAP 动效脚本，负责首页入场、滚动显现和下载页轻量动效
 - `crawshrimp-intro-16x9.mp4`：首页首屏社群宣传片（16:9）
 - `screenshot-*`：产品能力展示截图
 - `wechat-qr.jpg`：购买咨询二维码
