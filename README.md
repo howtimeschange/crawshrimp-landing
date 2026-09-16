@@ -42,13 +42,16 @@ http://localhost:8788/
 `download.html` 会请求 GitHub Releases API：
 
 ```text
-https://api.github.com/repos/howtimeschange/crawshrimp/releases/tags/desktop-latest
+https://api.github.com/repos/howtimeschange/crawshrimp/releases/latest
 ```
 
-下载页依赖这个 Release tag 下的 assets 命名来自动识别安装包：
+下载页依赖最新正式 Release 下的 assets 命名来自动识别安装包：
 
 - `mac-arm64`：macOS Apple Silicon
 - `mac-x64`：macOS Intel
-- `win-x64.exe`：Windows
+- `win-x64.exe`：Windows x64
+- `win-arm64.exe`：Windows 11 ARM64
 
-发布新版桌面端时，需要更新 `howtimeschange/crawshrimp` 仓库中 `desktop-latest` 这个 tag 对应的 Release assets。只要文件名继续包含上面的平台标识，落地页无需改代码。
+发布新版桌面端时，需要在 `howtimeschange/crawshrimp` 仓库发布正式 Release 并设为 Latest，上传以上四种架构的安装包。下载页跟随最新正式版，不再依赖可能滞后的 `desktop-latest`。
+
+Windows 自动推荐优先使用浏览器 User-Agent Client Hints 的架构信息，兼容明确带 ARM64 的 User-Agent。无法确认架构时不猜测，用户可从全部安装包中手动选择；未知系统不自动推荐 macOS 安装包。
