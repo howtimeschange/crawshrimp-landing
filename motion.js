@@ -105,17 +105,6 @@
         },
       });
 
-      gsap.to('.film-frame', {
-        y: -24,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.film-wrap',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.1,
-        },
-      });
-
       gsap.to('.film-orbit', {
         rotation: 10,
         transformOrigin: '50% 50%',

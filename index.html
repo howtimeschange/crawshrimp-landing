@@ -30,7 +30,6 @@
   <meta name="twitter:title" content="抓虾 crawshrimp｜电商自动化与 AI 图片视频生产平台" />
   <meta name="twitter:description" content="复用已登录 Chrome，在一个工作台里完成网页执行、AI 生图、生视频、审批和数据回收。" />
   <meta name="twitter:image" content="https://crawshrimp.com/og-image.png" />
-  <script>document.documentElement.classList.add('has-motion');</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -708,6 +707,7 @@
       .reveal { opacity: 1; transform: none; }
     }
   </style>
+  <link rel="stylesheet" href="interactions.css" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">跳到主要内容</a>
@@ -718,14 +718,14 @@
         <span class="brand-mark" aria-hidden="true">🦐</span>
         <span>抓虾 crawshrimp</span>
       </a>
-      <div class="nav-links">
+      <div class="nav-links" id="desktop-navigation">
         <a href="#product">产品全景</a>
         <a href="#ai-studio">AI 工作台</a>
         <a href="#automation">自动化</a>
         <a href="#collaboration">云端协作</a>
         <a href="#pricing">定价</a>
       </div>
-      <a class="nav-cta" href="/download.html">免费下载</a>
+      <div class="nav-actions"><button class="menu-toggle" type="button" aria-haspopup="dialog" aria-controls="mobile-menu" aria-label="打开导航">☰</button><a class="nav-cta" href="/download.html">免费下载 <span aria-hidden="true">↗</span></a></div>
     </nav>
   </header>
 
@@ -749,20 +749,35 @@
         </div>
       </div>
 
-      <div class="film-wrap reveal">
+      <div class="film-wrap reveal" id="product-preview">
         <div class="film-orbit" aria-hidden="true"></div>
-        <div class="film-frame">
-          <video class="hero-video" src="crawshrimp-intro-16x9.mp4" aria-label="抓虾项目社群宣传片" autoplay muted loop playsinline preload="metadata">
-            你的浏览器暂不支持视频播放，<a href="crawshrimp-intro-16x9.mp4">点击查看抓虾项目介绍视频</a>。
-          </video>
+        <div class="preview-heading"><span class="kicker">A closer look / 看看抓虾怎么工作</span><span class="preview-count" aria-hidden="true">01 — 03</span></div>
+        <div class="preview-tabs" role="tablist" aria-label="产品预览">
+          <button id="preview-tab-overview" type="button" role="tab" aria-selected="true" aria-controls="preview-overview"><span aria-hidden="true">▷</span> 产品介绍</button>
+          <button id="preview-tab-adapters" type="button" role="tab" aria-selected="false" aria-controls="preview-adapters" tabindex="-1"><span aria-hidden="true">▦</span> 适配包</button>
+          <button id="preview-tab-results" type="button" role="tab" aria-selected="false" aria-controls="preview-results" tabindex="-1"><span aria-hidden="true">↳</span> 结果文件</button>
         </div>
+        <div class="film-frame">
+          <div id="preview-overview" role="tabpanel" aria-labelledby="preview-tab-overview" tabindex="0">
+            <video class="hero-video" src="crawshrimp-intro-16x9.mp4" aria-label="抓虾项目介绍视频" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback preload="metadata" poster="og-image.png">
+              你的浏览器暂不支持视频播放，<a href="crawshrimp-intro-16x9.mp4">查看抓虾项目介绍视频</a>。
+            </video>
+          </div>
+          <div id="preview-adapters" role="tabpanel" aria-labelledby="preview-tab-adapters" tabindex="0" hidden>
+            <img src="screenshot-adapters.png" width="3456" height="2062" alt="抓虾 v2.5.7 适配包界面：收藏的深绘上新、巴拉 AI 视频、唯品会、Temu、森马云盘、上新与天猫运营助手，以及全部脚本" loading="lazy" />
+          </div>
+          <div id="preview-results" role="tabpanel" aria-labelledby="preview-tab-results" tabindex="0" hidden>
+            <img src="screenshot-4.png" width="2560" height="1600" alt="抓虾数据文件界面示例：按任务整理 Excel 结果，可以显示文件或另存为" loading="lazy" />
+          </div>
+        </div>
+        <div class="preview-caption"><p id="preview-caption">从平台操作到本地交付，先看一遍完整介绍。</p><a href="#product">了解产品全景 <span aria-hidden="true">↗</span></a></div>
       </div>
 
       <div class="stat-rail reveal" aria-label="产品数据">
         <div class="stat"><strong>21</strong><span>个内置 Adapter</span></div>
         <div class="stat"><strong>5</strong><span>步 AI 视频工作流</span></div>
         <div class="stat"><strong>5+</strong><span>种视频模型能力</span></div>
-        <div class="stat"><strong>3</strong><span>类桌面安装包</span></div>
+        <div class="stat"><strong>4</strong><span>种架构安装包</span></div>
       </div>
     </section>
 
@@ -1020,39 +1035,33 @@
     </div>
   </footer>
 
-  <div class="wechat-popup" id="wechat-popup" aria-hidden="true" onclick="if(event.target===this)closeContact()">
-    <div class="wechat-dialog" role="dialog" aria-modal="true" aria-labelledby="wechat-title">
-      <button class="wechat-close" type="button" onclick="closeContact()" aria-label="关闭">×</button>
-      <h3 id="wechat-title">微信扫码联系</h3>
-      <p>购买买断版、咨询 AI 工作流或定制新的网页自动化流程。</p>
-      <img src="wechat-qr.jpg" alt="抓虾微信联系二维码" />
+  <dialog class="contact-modal" id="wechat-popup" aria-labelledby="wechat-title" aria-describedby="wechat-description">
+    <div class="wechat-dialog">
+      <button class="wechat-close" type="button" onclick="closeContact()" aria-label="关闭咨询窗口" autofocus>×</button>
+      <div class="contact-mark" aria-hidden="true">🦐</div>
+      <span class="kicker">Let's talk / 一起把流程跑通</span>
+      <h3 id="wechat-title">聊聊你的下一个任务。</h3>
+      <p id="wechat-description">购买买断版、咨询 AI 工作流，或定制新的网页自动化流程。</p>
+      <img src="wechat-qr.jpg" alt="抓虾微信联系二维码" width="260" height="260" />
+      <p class="contact-hint">用微信扫一扫，告诉我们你想完成什么。</p>
+      <a class="contact-email" href="mailto:hi@crawshrimp.com">也可以发邮件：hi@crawshrimp.com ↗</a>
     </div>
-  </div>
+  </dialog>
+  <dialog class="mobile-menu" id="mobile-menu" aria-labelledby="menu-title">
+    <div class="menu-heading"><strong id="menu-title">探索抓虾</strong><button type="button" class="menu-close" aria-label="关闭导航" autofocus>×</button></div>
+    <nav aria-label="移动端导航">
+      <a href="#product">产品全景 <span>01 ↗</span></a>
+      <a href="#ai-studio">AI 工作台 <span>02 ↗</span></a>
+      <a href="#automation">自动化 <span>03 ↗</span></a>
+      <a href="#collaboration">云端协作 <span>04 ↗</span></a>
+      <a href="#pricing">定价 <span>05 ↗</span></a>
+    </nav>
+    <a class="button button-primary" href="/download.html">免费下载 ↗</a>
+  </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="motion.js"></script>
-  <script>
-    function openContact() {
-      const popup = document.getElementById('wechat-popup');
-      popup.classList.add('open');
-      popup.setAttribute('aria-hidden', 'false');
-      popup.querySelector('.wechat-close').focus();
-    }
-
-    function closeContact() {
-      const popup = document.getElementById('wechat-popup');
-      popup.classList.remove('open');
-      popup.setAttribute('aria-hidden', 'true');
-    }
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') closeContact();
-    });
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.reveal').forEach((element) => element.classList.add('is-visible'));
-    }
-  </script>
+  <script src="interactions.js"></script>
 </body>
 </html>
