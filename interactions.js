@@ -4,9 +4,9 @@
   const tabs = [...tablist.querySelectorAll('[role="tab"]')];
   const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
   const captions = [
-    '从平台操作到本地交付，先看一遍完整介绍。',
-    '界面示例 · 按平台组织适配包，让重复操作成为可复用的任务。',
-    '界面示例 · 结果按任务留在本地，方便查找、复核与另存。',
+    '常用平台、任务和 AI 工具，放进同一个工作台。',
+    '从平台操作到本地交付，看一遍完整演示。',
+    '按任务整理结果，随时查看与另存。',
   ];
   const indicator = document.createElement('span');
   indicator.className = 'tab-indicator';
@@ -17,8 +17,27 @@
   let animation;
   const video = document.querySelector('.hero-video');
   let previewVisible = false;
+  let userPaused = reducedMotion.matches;
+  const playback = document.querySelector('.playback-toggle');
+  function updatePlaybackButton() {
+    playback.dataset.paused = String(userPaused);
+    playback.setAttribute('aria-label', userPaused ? '播放演示视频' : '暂停演示视频');
+    playback.innerHTML = `${userPaused ? '播放演示' : '暂停演示'}<svg class="icon" aria-hidden="true" focusable="false"><use href="assets/icons.svg#${userPaused ? 'play' : 'pause'}"></use></svg>`;
+    playback.hidden = active !== 1;
+  }
+  playback.addEventListener('click', () => {
+    userPaused = !userPaused;
+    updatePlaybackButton();
+    syncVideoPlayback();
+  });
+  reducedMotion.addEventListener('change', event => {
+    userPaused = event.matches;
+    updatePlaybackButton();
+    syncVideoPlayback();
+  });
+  updatePlaybackButton();
   function syncVideoPlayback() {
-    if (active === 0 && previewVisible && !document.hidden) {
+    if (active === 1 && previewVisible && !document.hidden && !userPaused) {
       video.play().catch(() => { /* Browser autoplay policy may defer playback. */ });
     } else {
       video.pause();
@@ -38,7 +57,8 @@
       panels[i].hidden = i !== active;
     });
     document.getElementById('preview-caption').textContent = captions[active];
-    document.querySelector('.preview-count').textContent = `0${active + 1} — 03`;
+    document.querySelector('.preview-count').textContent = `0${active + 1} / 03`;
+    updatePlaybackButton();
     syncVideoPlayback();
     positionIndicator();
     if (focus) tabs[active].focus();
@@ -56,6 +76,8 @@
       if (next !== undefined) { event.preventDefault(); selectTab(next, true); }
     });
   });
+  document.querySelectorAll('[data-preview-video]').forEach(link => link.addEventListener('click', () => selectTab(1)));
+  document.querySelectorAll('[data-preview-adapters]').forEach(link => link.addEventListener('click', () => selectTab(0)));
   new ResizeObserver(positionIndicator).observe(tablist);
   document.fonts.ready.then(positionIndicator);
 
@@ -96,4 +118,9 @@
     syncVideoPlayback();
   }).observe(document.querySelector('.film-frame'));
   document.addEventListener('visibilitychange', syncVideoPlayback);
+  if (!reducedMotion.matches) {
+    document.querySelectorAll('.hero-message, .hero-art, .product-stage').forEach((element, i) => {
+      element.animate([{opacity: .4, transform: 'translateY(16px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 700, delay: i * 90, easing: 'cubic-bezier(.22,1,.36,1)'});
+    });
+  }
 })();

@@ -1,0 +1,31 @@
+:root {
+  --canvas: #f7f7f5; --canvas-2: #fff; --ink: #222321; --ink-2: #444641;
+  --muted: #62645e; --line: #deded8; --orange: #bb461a; --orange-2: #a73c13;
+  --orange-3: #a53d16; --white: #fff; --shadow-soft: none; --shadow-nav: none;
+  --radius-stage: 14px;
+}
+body { background: var(--canvas); font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+.nav-wrap { top: 0; background: var(--canvas); border-bottom: 1px solid var(--line); }
+.nav-wrap nav { min-height: 76px; border-radius: 0; background: var(--canvas); backdrop-filter: none; box-shadow: none; padding-inline: 0; }
+h1, h2, h3 { text-wrap: balance; letter-spacing: -.035em; }
+h1 { font-size: clamp(40px, 6vw, 68px); line-height: 1.15; }
+.subtitle { font-size: 17px; }
+.release-card { border-radius: 14px; box-shadow: none; }
+.release-card::after { display: none; }
+.panel { border-radius: 14px; background: var(--canvas-2); box-shadow: none; }
+.download-item { border-radius: 10px; }
+.btn-download, .btn-dl-small, .nav-back { border-radius: 8px; box-shadow: none; }
+@media (max-width: 640px) {
+  .nav-wrap { top: 0; padding-inline: 18px; }
+  .nav-wrap nav { width: 100%; min-height: 68px; }
+  .nav-back { top: 13px; right: 18px; }
+  .release-card, .panel { border-radius: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+.download-icon{background:#f0f1ed;border-radius:12px;display:grid;place-items:center;width:46px;height:46px;flex:none}
+.download-icon img{display:block;width:25px;height:25px;object-fit:contain}
+.download-name{font-weight:600;letter-spacing:-.02em}.download-sub,.download-file{font-weight:400}
+.btn-download,.btn-dl-small{font-weight:550;letter-spacing:.01em;border-radius:9px}

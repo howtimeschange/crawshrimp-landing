@@ -108,7 +108,7 @@
   }
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,400..800;1,400..800&display=swap');
+
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -629,6 +629,8 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="download-refinement.css?v=20261105-5" />
+  <link rel="stylesheet" href="typography.css?v=20261105-5" />
 </head>
 <body>
   <div class="nav-wrap">
@@ -686,7 +688,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="motion.js"></script>
+  <script src="motion.js?v=20261105-2"></script>
   <script>
     const REPO = 'howtimeschange/crawshrimp';
     const RELEASE_API = `https://api.github.com/repos/${REPO}/releases/latest`;
@@ -831,10 +833,10 @@
         const grid = document.getElementById('downloadGrid');
         grid.innerHTML = '';
         const items = [
-          { platform: 'mac-arm64', icon: '🍎', name: 'macOS Apple Silicon', sub: 'M1 / M2 / M3 / M4' },
-          { platform: 'mac-x64', icon: '🍎', name: 'macOS Intel', sub: 'Intel Core 处理器' },
-          { platform: 'win-x64', icon: '🪟', name: 'Windows x64', sub: 'Windows 10 / 11 · Intel / AMD 处理器' },
-          { platform: 'win-arm64', icon: '🪟', name: 'Windows ARM64', sub: 'Windows 11 ARM · 骁龙等 ARM 处理器' },
+          { platform: 'mac-arm64', icon: 'apple-logo', name: 'macOS Apple Silicon', sub: 'M1 / M2 / M3 / M4' },
+          { platform: 'mac-x64', icon: 'apple-logo', name: 'macOS Intel', sub: 'Intel Core 处理器' },
+          { platform: 'win-x64', icon: 'windows-logo', name: 'Windows x64', sub: 'Windows 10 / 11 · Intel / AMD 处理器' },
+          { platform: 'win-arm64', icon: 'windows-logo', name: 'Windows ARM64', sub: 'Windows 11 ARM · 骁龙等 ARM 处理器' },
         ];
 
         items.forEach(item => {
@@ -844,7 +846,7 @@
           div.className = 'download-item';
           div.innerHTML = `
             <div class="download-item-left">
-              <div class="download-icon">${item.icon}</div>
+              <div class="download-icon"><img src="assets/icons/${item.icon}.svg" alt="" width="26" height="26" aria-hidden="true" /></div>
               <div>
                 <div class="download-name">${item.name}</div>
                 <div class="download-sub">${item.sub}${asset.size ? ' · ' + formatSize(asset.size) : ''}<span class="download-file">${asset.name}</span></div>

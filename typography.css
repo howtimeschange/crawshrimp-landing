@@ -1,0 +1,4 @@
+@font-face{font-family:Manrope;src:url('assets/fonts/manrope-medium.ttf') format('truetype');font-style:normal;font-weight:400 500;font-display:swap}
+@font-face{font-family:Manrope;src:url('assets/fonts/manrope-semibold.ttf') format('truetype');font-style:normal;font-weight:550 800;font-display:swap}
+:root{--font-ui:Manrope,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+body{font-family:var(--font-ui);font-kerning:normal;font-optical-sizing:auto}

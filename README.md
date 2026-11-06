@@ -58,15 +58,14 @@ https://api.github.com/repos/howtimeschange/crawshrimp/releases/latest
 
 Windows 自动推荐优先使用浏览器 User-Agent Client Hints 的架构信息，兼容明确带 ARM64 的 User-Agent。无法确认架构时不猜测，用户可从全部安装包中手动选择；未知系统不自动推荐 macOS 安装包。
 
-## Be UI 交互升级
+## 视觉与交互
 
-保留静态 HTML / CSS / JavaScript 与现有 GSAP，不引入 React、Tailwind 或构建依赖。
+- `site.css`：首页布局、色彩、响应式和平台连续滚动。
+- `polish.css` / `typography.css`：控件、图标、字重与本地字体。
+- `interactions.js`：预览标签、视频播放、导航状态与原生对话框。
+- `download-refinement.css`：下载页视觉与 Apple / Windows 品牌标识。
+- `assets/icons.svg`：Phosphor Icons 本地图标集；许可证见 `assets/icons/LICENSE-phosphor.txt`。
+- `assets/fonts`：本地 Manrope 字体，中文使用系统字体。
+- Harness 的导航、首页介绍区、移动菜单和页脚入口指向 https://harness.crawshrimp.com/ 。
 
-- `interactions.css` / `interactions.js`：产品预览标签、当前章节导航、移动端菜单与原生咨询对话框。
-- 参考 [Tabs](https://beui.dev/components/motion/tabs)、[Expandable Tabs](https://beui.dev/components/blocks/expandable-tabs) 与 Preview Rail 的分组预览思路：视频 / 适配包 / 结果文件可切换，方向键、Home、End 可操作，图片保持完整比例。截图为现有仓库的界面示例。
-- 参考 [Dock](https://beui.dev/components/motion/dock) 的选中反馈：根据阅读章节标记导航；窄屏使用独立菜单。
-- 参考 [Morphing Modal](https://beui.dev/components/motion/morphing-modal) / [Drawer](https://beui.dev/components/motion/drawer) 的弹层反馈：沿用纸色与橙色，使用原生 dialog 管理焦点、Esc 和背景隔离。
-- 产品介绍视频静音自动循环播放，不显示播放器控件；隐藏后暂停，返回时自动续播；减少动态效果偏好下关闭新增动画。内容默认可见，即使 GSAP 未加载也可阅读。
-- 不采用图表、Agent 聊天、动态通知等组件：官网没有对应的实时数据或任务状态来源。
-
-本地验收：桌面与 390px / 320px 窄屏、标签键盘操作、菜单锚点、咨询关闭与焦点恢复、下载页回归。发布仍走原有 Cloudflare Pages 流程。
+本地验证范围：桌面、390px 与 320px 布局；预览标签键盘操作、播放控制、咨询弹窗与焦点恢复、移动菜单和下载页安装包展示。
